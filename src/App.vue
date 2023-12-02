@@ -1,13 +1,19 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-  <router-view/>
+  <router-view/> -->
+
+<SearchPage/>
+<ProductDetails/>
 </template>
 
 <style>
-#app {
+
+
+
+/* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -26,5 +32,14 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 </style>
+<script>
+import SearchPage from "@/components/SearchPage.vue";
+import { defineComponent } from "vue";
+import ProductDetails from "./components/ProductDetails.vue";
+export default defineComponent ({
+    name: 'App',
+    components: { SearchPage,ProductDetails}
+})
+</script>
