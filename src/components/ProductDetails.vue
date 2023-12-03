@@ -2,19 +2,10 @@
     <!-- <p>{{ users[0].title}}</p> -->
   <div class="container">
     <div class="left-column">
+     
+     
       <img
-        data-image="black"
-        src="https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg"
-        alt=""
-      />
-      <img
-        data-image="blue"
-        src="https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg"
-        alt=""
-      />
-      <img
-        data-image="red"
-        class="active"
+        
         src="https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg"
         alt=""
       />
@@ -23,7 +14,8 @@
     <div class="right-column">
       <div class="product-description">
         <h2>{{Product.productName}}</h2>
-        <h2>36000 INR</h2>
+        <h2>{{ Product.skus[0].price }}</h2>
+        <h3>Hurry up! only {{ Product.skus[0].stock }} product left in stock!</h3>
       </div>
       <div><hr></div>
 
@@ -68,12 +60,12 @@
         <div class="brand">
             <span>Brand :</span>
 
-            <div>Brand Name</div>
+            <div>{{ Product.attribute.brand }}</div>
             
         </div>
         <div class="description">
             <span>Description</span>
-            <p>aajnbvfdbifddififbnfndfn</p>
+            <p>{{ Product.description }}</p>
         </div>
       </div>
 
@@ -122,17 +114,15 @@ body {
 }
 
 .left-column img {
-  width: 50%;
+  width: 300px;
+  height: 450px;
   position: absolute;
   left: 10%;
-  top: 0;
-  opacity: 0;
+  top: 10%;
   transition: all 0.3s ease;
 }
 
-.left-column img.active {
-  opacity: 1;
-}
+
 .product-description {
  
   margin-bottom: 20px;

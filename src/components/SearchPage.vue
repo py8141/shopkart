@@ -4,6 +4,7 @@
  
   <div class="card-container">
   
+   
     <div v-for="product in products"  class="card" :key="product.productId">
       <img :src="product.productImageURL[0]" alt="Image 1">
       <!-- <img v-for="(img,index) in Product.productImageURL" :src="img" :key="index" > -->
@@ -11,11 +12,10 @@
       <div class="card-content">
         <h3>{{ product.productName }}</h3>
         <p class="price">{{ product.skus[0].price }}</p>
-        <div class="rating">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
+       
       </div>
     </div>
+
     
 </div>
 
@@ -636,6 +636,7 @@ products,
     justify-content: space-between;
     display: flex;
     align-items: center;
+    
   }
   
 
@@ -647,6 +648,7 @@ products,
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     box-sizing: border-box; 
+    cursor:pointer;
     
   }
   
@@ -670,60 +672,7 @@ products,
     font-weight: bold;
   }
   
-  .rating {
-    color: gold;
-    font-size: 20px;
-  }
 
-
-
-
-  
-
-  .rating {
-    font-size: 24px;
-    cursor: pointer;
-    color: rgb(208, 208, 16);
-  }
   
 </style>
 
-
-<!-- Rating.vue -->
-<!-- <template>
-    <div class="rating">
-      <span v-for="star in totalStars" :key="star" @click="rate(star)">
-        {{ star <= currentRating ? '★' : '☆' }}
-      </span>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      totalStars: {
-        type: Number,
-        default: 5,
-      },
-      initialRating: {
-        type: Number,
-        default: 0,
-      },
-    },
-    data() {
-      return {
-        currentRating: this.initialRating,
-      };
-    },
-    methods: {
-      rate(star) {
-        this.currentRating = star;
-        this.$emit('update:initialRating', star);
-      },
-    },
-  };
-  </script>
-  
- 
-  </style>
-   -->
