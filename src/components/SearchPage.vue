@@ -5,13 +5,14 @@
   <div class="card-container">
   
    
-    <div v-for="product in products"  class="card" :key="product.productId">
+    <div v-for="product in products"  class="card" :key="product.productId" @click="routeMeTo">
       <img :src="product.productImageURL[0]" alt="Image 1">
       <!-- <img v-for="(img,index) in Product.productImageURL" :src="img" :key="index" > -->
     
       <div class="card-content">
         <h3>{{ product.productName }}</h3>
         <p class="price">{{ product.skus[0].price }}</p>
+        <h3>Rating : {{ Product.reviews[0].stars }} / 5</h3>
        
       </div>
     </div>
@@ -24,6 +25,7 @@
 
 <script>
 
+import router from "@/router";
 import { defineComponent } from "vue";
 
 
@@ -33,6 +35,9 @@ export default defineComponent({
    
     setup() {
        
+        const routeMeTo = ()=>{
+            router.push("/product")
+        }
 
 
         // const rootStore = useRootStore();
@@ -175,7 +180,7 @@ export default defineComponent({
 },
 {
   "productId": "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
-  "productName": "Sample Product",
+  "productName": "Sample Product4",
   "productImageURL": [
     "https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg",
     "https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg"
@@ -572,7 +577,7 @@ export default defineComponent({
 
 
         return {
-            // product
+            routeMeTo,
 products,
             Product:
         {
@@ -634,14 +639,17 @@ products,
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    
     display: flex;
-    align-items: center;
+    gap: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
     
   }
   
 
   .card {
-    width: calc(25% - 20px); 
+    width: 300px;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 15px;
@@ -650,11 +658,14 @@ products,
     box-sizing: border-box; 
     cursor:pointer;
     
+    
+    
   }
   
 
   .card img {
     width: 100%;
+    height: 400px;
     border-radius: 10px;
     
   }
@@ -672,6 +683,30 @@ products,
     font-weight: bold;
   }
   
+  
+@media screen and (min-width:360px) and (max-width:600px){
+  
+    .card-container {
+    display: flex;
+    flex-wrap: wrap;
+   flex-direction: column;
+    align-items: center;
+    
+  }
+  .card{
+    width: 95%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    box-sizing: border-box; 
+    cursor:pointer;
+  }
+   
+}
+
+
 
   
 </style>

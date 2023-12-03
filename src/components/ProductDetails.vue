@@ -1,11 +1,8 @@
 <template>
-    <!-- <p>{{ users[0].title}}</p> -->
+  <!-- <p>{{ users[0].title}}</p> -->
   <div class="container">
     <div class="left-column">
-     
-     
       <img
-        
         src="https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg"
         alt=""
       />
@@ -13,14 +10,17 @@
 
     <div class="right-column">
       <div class="product-description">
-        <h2>{{Product.productName}}</h2>
+        <h2>{{ Product.productName }}</h2>
         <h2>{{ Product.skus[0].price }}</h2>
-        <h3>Hurry up! only {{ Product.skus[0].stock }} product left in stock!</h3>
+        <h3>
+          Hurry up! only {{ Product.skus[0].stock }} product left in stock!
+        </h3>
+        <h3>Rating : {{ Product.reviews[0].stars }} / 5</h3>
       </div>
-      <div><hr></div>
+      <div><hr /></div>
 
       <div class="product-configuration">
-        <div class="product-color">
+        <!-- <div class="product-color">
           <span>Color</span>
 
           <div class="color-choose">
@@ -56,33 +56,39 @@
               <label for="black"><span></span></label>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="brand">
-            <span>Brand :</span>
+          <span>Brand :</span>
 
-            <div>{{ Product.attribute.brand }}</div>
-            
+          <div>{{ Product.attribute.brand }}</div>
+        </div>
+        <div class="color">
+          <span>Color :</span>
+
+          <div>{{ Product.attribute.color }}</div>
         </div>
         <div class="description">
-            <span>Description</span>
-            <p>{{ Product.description }}</p>
+          <span>Description</span>
+          <p>{{ Product.description }}</p>
         </div>
       </div>
-
+      <div class="merchant">
+        <div></div>
+        <div></div>
+      </div>
+      <div><hr /></div>
       <div>
-        
         <a href="#" class="cart-btn-add">Add to cart</a>
         <a href="#" class="cart-btn-buy">Buy it Now</a>
       </div>
-      <div><hr></div>
     </div>
-</div>
-<div class="reviw-container">
+  </div>
+  <div class="reviw-container">
     <h2>Customer Reviws</h2>
-     <p>No Reviws Yet</p>
-     <div><p>Write a reviws</p></div>
-</div>
-
+    <p>No Reviws Yet</p>
+    <div><p>Write a reviws</p></div>
+    
+  </div>
 </template>
    
   
@@ -97,48 +103,47 @@ body {
 }
 
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 15px;
   display: flex;
+  justify-content: space-around;
 }
 
 .left-column {
-  width: 65%;
+  width: 300px;
+  height: 400px;
   position: relative;
 }
 
 .right-column {
-  width: 35%;
-  margin-top: 60px;
+  width: 300px;
+  height: 400px;
+  
 }
 
 .left-column img {
-  width: 300px;
-  height: 450px;
+  width: 100%;
+  height: 100%;
   position: absolute;
-  left: 10%;
+  border-radius: 10px;
   top: 10%;
   transition: all 0.3s ease;
 }
 
-
 .product-description {
- 
   margin-bottom: 20px;
 }
 
-.product-color {
-  margin-bottom: 30px;
+.brand div {
+  display: inline-block;
+  margin-left: 5%;
+}
+.color div {
+  margin-top: 5%;
+  display: inline-block;
+  margin-left: 5%;
 }
 
-.color-choose div {
-  display: inline-block;
-}
-.brand div{
-    display: inline-block;
-    margin-left: 5%;
-}
 /* .color-choose input[type="radio"] {
   display: none;
 } */
@@ -170,13 +175,9 @@ body {
   background-position: center;
 }
 
-
-.description{
-    margin-top: 10%;
-    
+.description {
+  margin-top: 5%;
 }
-
-
 
 .cart-btn-add {
   display: inline-block;
@@ -187,7 +188,6 @@ body {
   text-decoration: none;
   padding: 12px 30px;
   transition: all 0.5s;
-
 }
 .cart-btn-buy {
   display: inline-block;
@@ -210,126 +210,119 @@ body {
   color: #010101;
 }
 
-.reviw-container{
-    margin-top: 10%;
-    margin-left: 20%;
+.reviw-container {
+  margin-top: 10%;
+  margin-left: 10%;
+  border-radius: 25px;
+  border: 2px solid #8e918e;
+  padding: 20px; 
+  width: 80%;
+   
 }
 
-/* @media (max-width: 940px) {
+@media screen and (min-width: 360px) and (max-width: 900px) {
   .container {
+    display: flex;
+
     flex-direction: column;
-    margin-top: 60px;
+    align-items: center;
+    margin-bottom: 10px;
   }
+  .left-column {
+    margin-top: 10%;
 
-  .left-column,
-  .right-column {
-    width: 100%;
-  }
-
-  .left-column img {
     width: 300px;
-    right: 0;
-    top: -65px;
-    left: initial;
+    height: 400px;
   }
-}
 
-@media (max-width: 535px) {
-  .left-column img {
-    width: 220px;
-    top: -85px;
+  .right-column {
+    margin-top: 10%;
+
+    width: 300px;
+    height: 400px;
   }
-} */
+  .reviw-container{
+    width: 300px;
+   margin-left: 10%;
+  }
+  .reviw-container {
+  
+  margin: auto;
+  border-radius: 25px;
+  border: 2px solid #8e918e;
+  padding: 20px; 
+  width: 300px;
+  }
+  
+}
 </style>
    
 
-   <!-- <script>$(document).ready(function() {
- 
-    $('.color-choose input').on('click', function() {
-        var headphonesColor = $(this).attr('data-image');
-   
-        $('.active').removeClass('active');
-        $('.left-column img[data-image = ' + headphonesColor + ']').addClass('active');
-        $(this).addClass('active');
-    });
-   
-  });</script> -->
+  
 
   <script>
- 
 //   import useRootStore from "@/store/index";
- import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
-
- 
- 
 export default defineComponent({
-   
-    setup() {
-       
-
-
-        // const rootStore = useRootStore();
-        // rootStore.FETCH_POST()
-        // const product = computed(() => rootStore.posts.value)
-        
-        
-        
-
-
-        return {
-            // product
-
-            Product:
+  setup() {
+    // const rootStore = useRootStore();
+    // rootStore.FETCH_POST()
+    // const product = computed(() => rootStore.posts.value)
+    const Product = {
+      productId: "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
+      productName: "Sample Product",
+      productImageURL: [
+        "https://example.com/images/product1.jpg",
+        "https://example.com/images/product2.jpg",
+      ],
+      usp: "High-quality, durable, and versatile",
+      category: "ELECTRONICS", // Replace with the actual category value
+      skus: [
         {
-  "productId": "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
-  "productName": "Sample Product",
-  "productImageURL": [
-    "https://example.com/images/product1.jpg",
-    "https://example.com/images/product2.jpg"
-  ],
-  "usp": "High-quality, durable, and versatile",
-  "category": "ELECTRONICS", // Replace with the actual category value
-  "skus": [
-    {
-      "mId": "1",
-      "stock": 100,
-      "price": 299.99,
-      "listingPrice": 349.99,
-      "isActive": true
-    },
-    {
-      "mId": "2",
-      "stock": 50,
-      "price": 199.99,
-      "listingPrice": 249.99,
-      "isActive": true
+          mId: "1",
+          stock: 100,
+          price: 299.99,
+          listingPrice: 349.99,
+          isActive: true,
+        },
+        {
+          mId: "2",
+          stock: 50,
+          price: 199.99,
+          listingPrice: 249.99,
+          isActive: true,
+        },
+      ],
+      description: "This is a sample product description.",
+      attribute: {
+        color: "Black",
+        brand: "Sample Brand",
+      },
+      reviews: [
+        {
+          reviewId: "1",
+          mId: "3",
+          stars: 4.5,
+        },
+        {
+          reviewId: "2",
+          mId: "4",
+          stars: 5.0,
+        },
+      ],
+      ratings: 4.75,
+    };
+    const merchant = ref([]);
+    for (let ele of Product.skus) {
+      merchant.value.push(ele);
     }
-  ],
-  "description": "This is a sample product description.",
-  "attribute": {
-    "color": "Black",
-    "brand": "Sample Brand"
+    
+    return {
+      // product
+      Product,
+      merchant,
+    };
   },
-  "reviews": [
-    {
-      "reviewId": "1",
-      "mId": "3",
-      "stars": 4.5
-    },
-    {
-      "reviewId": "2",
-      "mId": "4",
-      "stars": 5.0
-    }
-  ],
-  "ratings": 4.75
-}
-
-           
-        }
-    }
-})
-
-        
+});
 </script>
