@@ -19,9 +19,9 @@
         </div>
     </div>
 </template>
-
+ 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 import userIcon from "@/assets/userIcon.svg"
 import ordericon from "@/assets/ordericon.svg"
 import shopingcart from "@/assets/shopingcart.svg"

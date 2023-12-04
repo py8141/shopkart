@@ -56,3 +56,12 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>
+import { defineComponent } from "vue";
+import NavBar from "@/components/NavBar.vue";
+
+export default defineComponent({
+  name: "App",
+  components: { NavBar },
+});
+</script>
