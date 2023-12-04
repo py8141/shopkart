@@ -11,9 +11,9 @@
         </div>
     </div>
 </template>
-
+ 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 import userIcon from "@/assets/userIcon.svg"
 export default defineComponent({
     setup() {
