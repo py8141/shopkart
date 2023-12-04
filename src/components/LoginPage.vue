@@ -6,7 +6,7 @@
       <div>
         <div class="email">
           <label> Email: </label>
-          <input class="email-input" v-model="email" type="email" required />
+          <input class="email-input" v-model="username" type="text" required />
         </div>
         <div class="password">
           <label>Password: </label>
@@ -25,27 +25,57 @@
   </div>
 </template>
   
-  <script>
-import { defineComponent, ref } from "vue";
+<script>
+import { defineComponent, ref, reactive ,toRefs } from "vue";
+import useAuthStore from "@/store/auth-store.js";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
-    const email = ref("");
+    const username = ref("");
     const password = ref("");
+    const authStore = useAuthStore();
 
-    const login = () => {
-      console.log("clicked");
-      // Call your backend API for authentication
-      // For simplicity, let's assume a successful login for any non-empty email and password
-      if (email.value != " " && password.value != " ") {
-        alert("Login successful!");
-        // Redirect to another page or perform other actions after successful login
-      } else {
-        alert("Invalid email or password");
+    const router = useRouter();
+    const state = reactive({
+      isLoggedIn: false,
+    });
+
+
+    const login = async () => {
+      try {
+        const userCredentials = {
+          username: username.value,
+          password: password.value,
+        };
+
+        // Call your backend API for authentication
+        const token = await authStore.loginUser(userCredentials);
+        // console.log(token);
+        // Check if the token is received
+        if (token) {
+          // Store the token in session storage
+          sessionStorage.setItem("jwtToken", token);
+          
+          alert("Login successful!");
+          state.isLoggedIn = true;
+          router.push('/')
+
+          // Redirect to another page or perform other actions after successful login
+        } else {
+          alert("Invalid username or password");
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        alert("An error occurred during login. Please try again later.");
       }
     };
+
     return {
       login,
+      username,
+      password,
+      ...toRefs(state)
     };
   },
 });

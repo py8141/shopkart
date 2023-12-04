@@ -20,6 +20,7 @@
         </div>
     </div>
 </template>
+
 <style scoped>
 .hero-cnt-title {
     padding: 5rem;
@@ -65,7 +66,9 @@ export default defineComponent({
         HomeProductCard,
         CarouselComponent
     },
+    
     setup() {
+        
 
     },
 })
