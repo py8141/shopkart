@@ -11,7 +11,7 @@
     <div class="right-column">
       <div class="product-description">
         <h2>{{ Product.productName }}</h2>
-        <h2>{{ Product.skus[0].price }}</h2>
+        <h2>Rp. {{ Product.skus[0].price }}</h2>
         <h3>
           Hurry up! only {{ Product.skus[0].stock }} product left in stock!
         </h3>
@@ -87,38 +87,32 @@
     <h2>Customer Reviws</h2>
     <p>No Reviws Yet</p>
     <div><p>Write a reviws</p></div>
-    
   </div>
 </template>
    
   
    
    <style scoped>
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-}
-
 .container {
-  margin: 0 auto;
-  padding: 15px;
   display: flex;
   justify-content: space-around;
+  margin-top: 4%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  
 }
 
 .left-column {
   width: 300px;
   height: 400px;
+  margin-right: 100px;
   position: relative;
 }
 
 .right-column {
   width: 300px;
   height: 400px;
-  
 }
 
 .left-column img {
@@ -128,6 +122,11 @@ body {
   border-radius: 10px;
   top: 10%;
   transition: all 0.3s ease;
+
+  margin: auto;
+  border-radius: 25px;
+  border: 2px solid #8e918e;
+  padding: 20px;
 }
 
 .product-description {
@@ -211,13 +210,13 @@ body {
 }
 
 .reviw-container {
-  margin-top: 10%;
-  margin-left: 10%;
+  margin-top: 15%;
   border-radius: 25px;
   border: 2px solid #8e918e;
-  padding: 20px; 
+  padding: 20px;
   width: 80%;
-   
+  margin-left: 10%;
+  margin-bottom: 30px;
 }
 
 @media screen and (min-width: 360px) and (max-width: 900px) {
@@ -226,34 +225,34 @@ body {
 
     flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    margin-left: 8px;
   }
   .left-column {
     margin-top: 10%;
 
     width: 300px;
     height: 400px;
+    margin-left: 8px;
   }
 
   .right-column {
-    margin-top: 10%;
+    margin-top: 20%;
 
     width: 300px;
     height: 400px;
+    margin-left: 8px;
   }
-  .reviw-container{
-    width: 300px;
-   margin-left: 10%;
-  }
+
   .reviw-container {
-  
-  margin: auto;
-  border-radius: 25px;
-  border: 2px solid #8e918e;
-  padding: 20px; 
-  width: 300px;
+    margin: auto;
+    border-radius: 25px;
+    border: 2px solid #8e918e;
+
+    padding: 20px;
+    /* margin-left: 8px; */
+    width: 315px;
   }
-  
 }
 </style>
    
@@ -317,7 +316,7 @@ export default defineComponent({
     for (let ele of Product.skus) {
       merchant.value.push(ele);
     }
-    
+
     return {
       // product
       Product,
