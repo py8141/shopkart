@@ -23,7 +23,7 @@ const routes = [
     component: SearchPage
   },
   {
-    path: '/product',
+    path: '/product/:id',
     name:'product',
     component:ProductDetails
   },

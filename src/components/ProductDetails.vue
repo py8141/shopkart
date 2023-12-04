@@ -1,9 +1,9 @@
 <template>
-  <!-- <p>{{ users[0].title}}</p> -->
+ 
   <div class="container">
     <div class="left-column">
       <img
-        src="https://img.freepik.com/premium-photo/painting-rainbow-roses_899870-52528.jpg"
+      :src="Product.productImageURL[0]"
         alt=""
       />
     </div>
@@ -11,65 +11,29 @@
     <div class="right-column">
       <div class="product-description">
         <h2>{{ Product.productName }}</h2>
-        <h2>Rp. {{ Product.skus[0].price }}</h2>
+        <h2>Rp. {{ Product.productName}}</h2>
         <h3>
-          Hurry up! only {{ Product.skus[0].stock }} product left in stock!
+          Hurry up! only {{ Product.productName }} product left in stock!
         </h3>
-        <h3>Rating : {{ Product.reviews[0].stars }} / 5</h3>
+        <h3>Rating : {{ Product.productName}} / 5</h3>
       </div>
       <div><hr /></div>
 
       <div class="product-configuration">
-        <!-- <div class="product-color">
-          <span>Color</span>
-
-          <div class="color-choose">
-            <div>
-              <input
-                data-image="red"
-                type="radio"
-                id="red"
-                name="color"
-                value="red"
-                checked
-              />
-              <label for="red"><span></span></label>
-            </div>
-            <div>
-              <input
-                data-image="blue"
-                type="radio"
-                id="blue"
-                name="color"
-                value="blue"
-              />
-              <label for="blue"><span></span></label>
-            </div>
-            <div>
-              <input
-                data-image="black"
-                type="radio"
-                id="black"
-                name="color"
-                value="black"
-              />
-              <label for="black"><span></span></label>
-            </div>
-          </div>
-        </div> -->
+       
         <div class="brand">
           <span>Brand :</span>
 
-          <div>{{ Product.attribute.brand }}</div>
+          <div>{{ Product.productName }}</div>
         </div>
         <div class="color">
           <span>Color :</span>
 
-          <div>{{ Product.attribute.color }}</div>
+          <div>{{Product.productName }}</div>
         </div>
         <div class="description">
           <span>Description</span>
-          <p>{{ Product.description }}</p>
+          <p>{{ Product.productName }}</p>
         </div>
       </div>
       <div class="merchant">
@@ -119,6 +83,7 @@
   height: 100%;
   border-radius: 10px;
   top: 10%;
+  object-fit: contain;
 
   margin: auto;
   border-radius: 25px;
@@ -139,10 +104,6 @@
   display: inline-block;
   margin-left: 5%;
 }
-
-/* .color-choose input[type="radio"] {
-  display: none;
-} */
 
 .color-choose input[type="radio"] + label span {
   display: inline-block;
@@ -258,66 +219,36 @@
 
   <script>
 //   import useRootStore from "@/store/index";
-import { defineComponent, ref } from "vue";
+import {  computed, defineComponent, ref } from "vue";
+import { useRoute } from "vue-router";
+import useProductRootStore from "@/store/ProductStore";
 
 export default defineComponent({
   setup() {
+
+
+    const rootStore = useProductRootStore();
+   
+    // const Product = computed(() => rootStore.products.value)
+    // const Product ={}
+    const id = ref(0);
+    const route = useRoute()
+    id.value = route.params.id
+     rootStore.FETCH_PRODUCT_BY_ID(id.value)
     // const rootStore = useRootStore();
     // rootStore.FETCH_POST()
-    // const product = computed(() => rootStore.posts.value)
-    const Product = {
-      productId: "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
-      productName: "Sample Product",
-      productImageURL: [
-        "https://example.com/images/product1.jpg",
-        "https://example.com/images/product2.jpg",
-      ],
-      usp: "High-quality, durable, and versatile",
-      category: "ELECTRONICS", // Replace with the actual category value
-      skus: [
-        {
-          mId: "1",
-          stock: 100,
-          price: 299.99,
-          listingPrice: 349.99,
-          isActive: true,
-        },
-        {
-          mId: "2",
-          stock: 50,
-          price: 199.99,
-          listingPrice: 249.99,
-          isActive: true,
-        },
-      ],
-      description: "This is a sample product description.",
-      attribute: {
-        color: "Black",
-        brand: "Sample Brand",
-      },
-      reviews: [
-        {
-          reviewId: "1",
-          mId: "3",
-          stars: 4.5,
-        },
-        {
-          reviewId: "2",
-          mId: "4",
-          stars: 5.0,
-        },
-      ],
-      ratings: 4.75,
-    };
-    const merchant = ref([]);
-    for (let ele of Product.skus) {
-      merchant.value.push(ele);
-    }
+    const Product = computed(() => rootStore.LastesProductById.value)
+   
+   
+    // const merchant = ref([]);
+    // for (let ele of Product.skus) {
+    //   merchant.value.push(ele);
+    // }
 
     return {
       // product
-      Product,
-      merchant,
+      Product
+      
     };
   },
 });
