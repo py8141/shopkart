@@ -3,7 +3,13 @@ import SearchPage from "@/components/SearchPage"
 import ProductDetails from "@/components/ProductDetails"
 import LoginPage from "@/components/LoginPage"
 import RegisterPage from "@/components/RegisterPage"
+import HomePage from "@/components/HomePage"
 const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage
+  },
   {
     path: '/search',
     name: 'search',
@@ -24,7 +30,6 @@ const routes = [
     name:'register',
     component:RegisterPage
   }
-
 ]
 
 const router = createRouter({
