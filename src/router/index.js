@@ -4,11 +4,18 @@ import ProductDetails from "@/components/ProductDetails"
 import LoginPage from "@/components/LoginPage"
 import RegisterPage from "@/components/RegisterPage"
 import HomePage from "@/components/HomePage"
+import CartComponent from "@/components/CartComponent"
+
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomePage
+  },
+  {
+    path:'/cart',
+    name:'cart',
+    component:CartComponent
   },
   {
     path: '/search',
