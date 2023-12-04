@@ -107,21 +107,18 @@
   width: 300px;
   height: 400px;
   margin-right: 100px;
-  position: relative;
 }
 
 .right-column {
-  width: 300px;
+  width: 360px;
   height: 400px;
 }
 
 .left-column img {
   width: 100%;
   height: 100%;
-  position: absolute;
   border-radius: 10px;
   top: 10%;
-  transition: all 0.3s ease;
 
   margin: auto;
   border-radius: 25px;
