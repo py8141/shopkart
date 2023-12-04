@@ -1,7 +1,9 @@
 <template>
-  <NavBar />
-  <router-view />
-  <FooterComponent />
+  <div class="WA-cnt">
+    <NavBar />
+    <router-view />
+    <FooterComponent />
+  </div>
 </template>
 <script>
 import NavBar from "@/components/NavBar"
@@ -11,7 +13,7 @@ import { defineComponent } from "vue"
 export default defineComponent({
   components: {
     NavBar,
-    FooterComponent
+    FooterComponent,
   },
   setup() {
 
@@ -26,6 +28,11 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
+}
+.WA-cnt{
+  margin: 0;
+
 }
 
 body {

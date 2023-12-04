@@ -67,7 +67,7 @@ export default defineComponent({
 <style scoped>
 .product-image {
     width: 40%;
-    animation: move-x-y 2s infinite;
+    /* animation: move-x-y 2s infinite; */
 }
 
 @keyframes move-x-y {
