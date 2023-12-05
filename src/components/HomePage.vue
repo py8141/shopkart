@@ -27,6 +27,7 @@
         </div>
     </div>
 </template>
+
 <style scoped>
 .icon {
     width: 1.2rem;
@@ -121,6 +122,7 @@ export default defineComponent({
 
         })
         const routeMeToSearch = () => {
+
 
             router.push("/search")
         }

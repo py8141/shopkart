@@ -1,6 +1,5 @@
 
 <template>
-   
   <div class="register">
     <h2>Register</h2>
     <form @submit.prevent="register" class="form-div">
@@ -11,16 +10,11 @@
         </div>
         <div class="name">
           <label> Name: </label>
-          <input class="name-input" v-model="name" type="text" required />
+          <input class="name-input" v-model="username" type="text" required />
         </div>
         <div class="password">
           <label>Password:</label>
-          <input
-            class="password-input"
-            v-model="password"
-            type="password"
-            required
-          />
+          <input class="password-input" v-model="password" type="password" required />
         </div>
       </div>
       <div>
@@ -28,49 +22,65 @@
       </div>
     </form>
   </div>
-
 </template>
     
-    <script>
-import { defineComponent, ref } from "vue";
+<script>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import useAuthStore from "@/store/auth-store.js";
 
-export default defineComponent({
+export default {
   setup() {
+    const { registerUser, registerStatus } = useAuthStore();
     const email = ref("");
     const password = ref("");
+    const username = ref("");
 
-    const register = () => {
-      console.log("clicked");
-      // Call your backend API for authentication
-      // For simplicity, let's assume a successful login for any non-empty email and password
-      if (email.value != " " && password.value != " ") {
-        alert("Register successful!");
-        // Redirect to another page or perform other actions after successful login
+    const router = useRouter();
+    const register = async () => {
+      const userDto = {
+        userEmail: email.value,
+        password: password.value,
+        username: username.value,
+      };
+
+      const result = await registerUser(userDto);
+
+      if (result && result.error) {
+        alert(result.error);
       } else {
-        alert("Invalid email or password");
+        alert("Register successful!");
+        // Redirect to another page or perform other actions after successful registration
+        router.push('/login')
       }
     };
+
     return {
       register,
+      email,
+      password,
+      username,
+      registerStatus,
     };
   },
-});
+};
 </script>
     
-    <style scoped>
-
-   
+<style scoped>
 .email {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .name {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .name-input {
   margin-left: 20px;
 }
+
 .email-input {
   margin-left: 20px;
 }
@@ -85,9 +95,11 @@ export default defineComponent({
   padding: 20px;
   margin-top: 100px;
 }
+
 .register h2 {
   text-align: center;
 }
+
 .form-div {
   display: flex;
   flex-wrap: wrap;

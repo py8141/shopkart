@@ -5,6 +5,7 @@ import LoginPage from "@/components/LoginPage"
 import RegisterPage from "@/components/RegisterPage"
 import HomePage from "@/components/HomePage"
 import CartComponent from "@/components/CartComponent"
+import OrderComponent from "@/components/OrderComponent"
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
     path:'/cart',
     name:'cart',
     component:CartComponent
+  },
+  {
+    path:'/orders',
+    name: 'orders',
+    component : OrderComponent
   },
   {
     path: '/search',
