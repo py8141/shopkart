@@ -5,6 +5,7 @@ import LoginPage from "@/components/LoginPage"
 import RegisterPage from "@/components/RegisterPage"
 import HomePage from "@/components/HomePage"
 import CartComponent from "@/components/CartComponent"
+import OrderComponent from "@/components/OrderComponent"
 
 const routes = [
   {
@@ -18,12 +19,17 @@ const routes = [
     component:CartComponent
   },
   {
+    path:'/orders',
+    name: 'orders',
+    component : OrderComponent
+  },
+  {
     path: '/search',
     name: 'search',
     component: SearchPage
   },
   {
-    path: '/product',
+    path: '/product/:id',
     name:'product',
     component:ProductDetails
   },
@@ -42,6 +48,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+ 
 })
 
 export default router
