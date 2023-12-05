@@ -1,73 +1,63 @@
 <template>
-    <div>
-        <img :src="product.productImageURL[0]" class="product-image" />
+    <div class="home-product-card-cnt" @click="routeMeToProduct(product.productId)">
+        <p>{{ product.productName }}</p>
+        <div class="img-cnt">
+            <img :src="product.productImageURL[0]" class="product-image" />
+        </div>
         <div>
             <p>{{ product.productName }}</p>
-            <p>INR {{ product.skus[0].listingPrice }}</p>
         </div>
     </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
-    setup() {
-        const product = {
-            "productId": "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
-            "productName": "Sample Product",
-            "productImageURL": [
-                "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg",
-                "https://example.com/images/product2.jpg"
-            ],
-            "usp": "High-quality, durable, and versatile",
-            "category": "ELECTRONICS", // Replace with the actual category value
-            "skus": [
-                {
-                    "mId": "1",
-                    "stock": 100,
-                    "price": 299.99,
-                    "listingPrice": 349.99,
-                    "isActive": true
-                },
-                {
-                    "mId": "2",
-                    "stock": 50,
-                    "price": 199.99,
-                    "listingPrice": 249.99,
-                    "isActive": true
-                }
-            ],
-            "description": "This is a sample product description.",
-            "attribute": {
-                "color": "Black",
-                "brand": "Sample Brand"
-            },
-            "reviews": [
-                {
-                    "reviewId": "1",
-                    "mId": "3",
-                    "stars": 4.5
-                },
-                {
-                    "reviewId": "2",
-                    "mId": "4",
-                    "stars": 5.0
-                }
-            ],
-            "ratings": 4.75
+    props: {
+        product: {
+            required: true
         }
+    },
+    setup() {
+        const router = useRouter();
+        const routeMeToProduct = (productId) => {
+            router.push(`/product/${productId}`)
+        }
+
         return {
-            product
+            routeMeToProduct
         }
     },
 })
 </script>
 
 <style scoped>
+.img-cnt {
+    height: 200px;
+    width: 400px;
+}
+
+.home-product-card-cnt {
+    cursor: pointer;
+}
+
 .product-image {
-    width: 40%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     /* animation: move-x-y 2s infinite; */
+}
+
+.product-image img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.icon {
+    width: 1.2rem;
+    margin: 0.3rem;
 }
 
 @keyframes move-x-y {
@@ -82,4 +72,5 @@ export default defineComponent({
     100% {
         transform: translateX(5px);
     }
-}</style>
+}
+</style>
