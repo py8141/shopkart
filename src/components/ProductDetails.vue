@@ -11,7 +11,7 @@
     <div class="right-column">
       <div class="product-description">
         <h2>{{ Product.productName }}</h2>
-        <h2>Rp. {{ Product.productName}}</h2>
+        <h2>Rs. {{ selectedOption?.price }}</h2>
         <h3>
           Hurry up! only {{ Product.productName }} product left in stock!
         </h3>

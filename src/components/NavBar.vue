@@ -42,7 +42,13 @@ export default defineComponent({
             window.location.reload()
 
         };
-
+        const takeMeToLogin = () => {
+            router.push("/login")
+        }
+        const takeMeToOrders = () => {
+            router.push("/orders")
+        }
+        const logedIn = computed(() => authStore.userJWT.length > 0)
         const router = useRouter();
         const takeMeHome = () => {
             router.push("/")
