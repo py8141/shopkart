@@ -1,11 +1,6 @@
 <template>
   <div class="card-container">
-    <div
-      v-for="product in products"
-      class="card"
-      :key="product.productId"
-      @click="routeMeTo(product.productId)"
-    >
+    <div v-for="product in products" class="card" :key="product.productId" @click="routeMeTo(product.productId)">
       <img :src="product.productImageURL[0]" alt="Image 1" />
       <!-- <img v-for="(img,index) in Product.productImageURL" :src="img" :key="index" > -->
 
@@ -20,30 +15,21 @@
 
 <script>
 import router from "@/router";
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, watch } from "vue";
 import useProductRootStore from "@/store/ProductStore";
 
 export default defineComponent({
   setup() {
-
-   
     const rootStore = useProductRootStore();
     rootStore.FETCH_PRODUCTS()
-    const products = computed(() => rootStore.products.value)
-
-   
-
-
-
+    const products = computed(() => rootStore.products)
     const routeMeTo = (productId) => {
       router.push(`/product/${productId}`);
     };
 
-   
     return {
       routeMeTo,
       products,
-    
     };
   },
 });
@@ -99,6 +85,7 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
   }
+
   .card {
     width: 100%;
     background-color: #ffffff;

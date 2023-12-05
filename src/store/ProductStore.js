@@ -1,15 +1,13 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 
-
-  export const useProductRootStore = defineStore("productRoot", () => {
-  const products = reactive({ value: {} });
-  const LastesProductById = reactive({ value: {} });
 export const useProductRootStore = defineStore("productRoot", () => {
   const products = ref([]);
+  const LastesProductById = reactive({ value: {} });
   const productsOfElectronics = ref([]);
   const productsOfBooks = ref([]);
   const productsOfFashion = ref([]);
+
   const FETCH_PRODUCTS = async () => {
     const res = await fetch("http://10.20.3.164:8099/api/products/all");
     const jsonnew = await res.json();
@@ -37,18 +35,20 @@ export const useProductRootStore = defineStore("productRoot", () => {
     productsOfFashion.value = jsonnew;
   };
 
-  const FETCH_PRODUCT_BY_ID = async (productId)=>{
-    const res = await fetch(`http://10.20.3.164:8099/api/products/${productId}`);
+  const FETCH_PRODUCT_BY_ID = async (productId) => {
+    const res = await fetch(
+      `http://10.20.3.164:8099/api/products/${productId}`
+    );
     const jsonnew = await res.json();
     LastesProductById.value = { ...jsonnew };
-    console.log(LastesProductById.value)
-  }
+    console.log(LastesProductById.value);
+  };
 
   return {
     products,
     FETCH_PRODUCT_BY_ID,
     FETCH_PRODUCTS,
-    LastesProductById
+    LastesProductById,
     FETCH_BOOKS_PRODUCTS,
     FETCH_ELECRONICS_PRODUCTS,
     FETCH_FASHION_PRODUCTS,
