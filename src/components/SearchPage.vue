@@ -5,8 +5,10 @@
       <!-- <img v-for="(img,index) in Product.productImageURL" :src="img" :key="index" > -->
 
       <div class="card-content">
-        <h3 class="oneline">{{ product.productName }}</h3>
-        <p class="price">Rp. {{ product.productName  }}</p>
+
+        <h3>{{ product.productName }}</h3>
+        <p class="price">Rs. {{ product?.skus?.[0].price }}</p>
+
         <h3>Rating : {{ product.reviews }} / 5</h3>
       </div>
     </div>

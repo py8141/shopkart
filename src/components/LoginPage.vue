@@ -10,12 +10,7 @@
         </div>
         <div class="password">
           <label>Password: </label>
-          <input
-            class="password-input"
-            v-model="password"
-            type="password"
-            required
-          />
+          <input class="password-input" v-model="password" type="password" required />
         </div>
       </div>
       <div>
@@ -26,7 +21,7 @@
 </template>
   
 <script>
-import { defineComponent, ref, reactive ,toRefs } from "vue";
+import { defineComponent, ref, reactive, toRefs } from "vue";
 import useAuthStore from "@/store/auth-store.js";
 import { useRouter } from "vue-router";
 
@@ -46,7 +41,7 @@ export default defineComponent({
       try {
         const userCredentials = {
           username: username.value,
-          password: password.value, 
+          password: password.value,
         };
 
         // Call your backend API for authentication
@@ -55,8 +50,8 @@ export default defineComponent({
         // Check if the token is received
         if (token) {
           sessionStorage.setItem("jwtToken", token.token);
-          sessionStorage.setItem("userId",token.userId)
-          
+          sessionStorage.setItem("userId", token.userId)
+          authStore.userJWT = token.token
           alert("Login successful!");
           state.isLoggedIn = true;
           router.push('/')
@@ -81,11 +76,12 @@ export default defineComponent({
 });
 </script>
   
-  <style scoped>
+<style scoped>
 .email {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .email-input {
   margin-left: 20px;
 }
@@ -99,10 +95,13 @@ export default defineComponent({
   border: 2px solid #8e918e;
   padding: 20px;
   margin-top: 100px;
+  margin-bottom: 100px;
 }
+
 .login h2 {
   text-align: center;
 }
+
 .form-div {
   display: flex;
   flex-wrap: wrap;
