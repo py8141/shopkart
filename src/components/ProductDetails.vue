@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="left-column">
-      <img :src="Product.productImageURL?.[0]" alt="" />
+      <img :src="Product?.productImageURL?.[0]" alt="" />
     </div>
 
     <div class="right-column">
       <div class="product-description">
-        <h2>{{ Product.productName }}</h2>
+        <h2>{{ Product?.productName }}</h2>
         <h2>Rs. {{ selectedOption?.price }}</h2>
         <h3>
           Hurry up! only {{ totalStock || 0 }} product left in stock!
@@ -28,11 +28,11 @@
         <div class="color">
           <span>Color :</span>
 
-          <div>{{ Product.attribute.color }}</div>
+          <div>{{ Product.attribute?.color }}</div>
         </div>
         <div class="description">
           <span>Description :</span>
-          <p>{{ Product.description }}</p>
+          <p>{{ Product?.description }}</p>
         </div>
         <div>
           <label>Select an option:</label>
