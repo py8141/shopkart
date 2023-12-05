@@ -46,7 +46,7 @@ export default defineComponent({
       try {
         const userCredentials = {
           username: username.value,
-          password: password.value,
+          password: password.value, 
         };
 
         // Call your backend API for authentication
@@ -54,8 +54,8 @@ export default defineComponent({
         // console.log(token);
         // Check if the token is received
         if (token) {
-          // Store the token in session storage
-          sessionStorage.setItem("jwtToken", token);
+          sessionStorage.setItem("jwtToken", token.token);
+          sessionStorage.setItem("userId",token.userId)
           
           alert("Login successful!");
           state.isLoggedIn = true;

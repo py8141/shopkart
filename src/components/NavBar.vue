@@ -2,8 +2,6 @@
     <div class="nav-cnt">
         <div class="nav-left">
             <a>ShopKart</a>
-            <!-- <router-link to ="/">ShopKart</router-link> -->
-
         </div>
 
         <div :class="{ 'search-cnt-loggedin': isLoggedIn, 'search-cnt-loggedout': !isLoggedIn }">
@@ -56,11 +54,13 @@ export default defineComponent({
 </script>
 <style scoped>
 .search-cnt-loggedin {
-  flex: 0.5; /* Adjust the width as needed when logged in */
+  flex: 0.5; 
+  padding: auto;
 }
 
 .search-cnt-loggedout {
-  flex: 0.7; /* Adjust the width as needed when logged out */
+  flex: 0.7;
+  margin-right: 300px; 
 }
 
 .logoutButton {
