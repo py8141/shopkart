@@ -1,6 +1,5 @@
 <template>
     <div class="home-product-card-cnt" @click="routeMeToProduct(product.productId)">
-        <p>{{ product.productName }}</p>
         <div class="img-cnt">
             <img :src="product.productImageURL[0]" class="product-image" />
         </div>

@@ -52,7 +52,7 @@ export default defineComponent({
             ordericon,
             shopingcart,
             isLoggedIn,
-            logout
+            logout,
             takeMeHome
         }
     },
@@ -60,13 +60,13 @@ export default defineComponent({
 </script>
 <style scoped>
 .search-cnt-loggedin {
-  flex: 0.5; 
-  padding: auto;
+    flex: 0.5;
+    padding: auto;
 }
 
 .search-cnt-loggedout {
-  flex: 0.7;
-  margin-right: 300px; 
+    flex: 0.7;
+    margin-right: 300px;
 }
 
 .logoutButton {
@@ -155,4 +155,5 @@ export default defineComponent({
     padding: 0 1rem;
     font-weight: 800;
     font-size: 1.1rem;
-}</style>
+}
+</style>
