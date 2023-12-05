@@ -15,7 +15,7 @@
 
 <script>
 import router from "@/router";
-import { computed, defineComponent, watch } from "vue";
+import { computed, defineComponent } from "vue";
 import useProductRootStore from "@/store/ProductStore";
 
 export default defineComponent({
