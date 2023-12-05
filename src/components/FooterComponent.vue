@@ -3,7 +3,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">
-          <img src="/assets/shopkart-logo.png" alt="ShopKart Logo" />
+          <!-- <img src="/assets/shopkart-logo.png" alt="ShopKart Logo" /> -->
         </div>
         <!-- <div class="footer-links">
           <ul>
@@ -42,7 +42,6 @@ export default {
   color: #fff;
   padding: 20px 0;
   text-align: center;
-  margin-top: 12rem;
   width: 100%;
 }
 
