@@ -5,8 +5,10 @@
       <!-- <img v-for="(img,index) in Product.productImageURL" :src="img" :key="index" > -->
 
       <div class="card-content">
+
         <h3>{{ product.productName }}</h3>
-        <p class="price">Rp. {{ product?.skus?.[0].price }}</p>
+        <p class="price">Rs. {{ product?.skus?.[0].price }}</p>
+
         <h3>Rating : {{ product.reviews }} / 5</h3>
       </div>
     </div>
@@ -44,10 +46,16 @@ export default defineComponent({
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 20px;
+ 
+}
+.oneline{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .card {
-  height: 460px;
+  height: 480px;
   width: 300px;
   background-color: #ffffff;
   border-radius: 15px;
@@ -56,11 +64,12 @@ export default defineComponent({
   margin-bottom: 20px;
   box-sizing: border-box;
   cursor: pointer;
+  
 }
 
 .card img {
   width: 100%;
-  height: 350px;
+  height: 330px;
   border-radius: 10px;
   object-fit: contain;
 }

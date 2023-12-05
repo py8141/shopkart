@@ -41,7 +41,7 @@ export const useProductRootStore = defineStore("productRoot", () => {
     );
     const jsonnew = await res.json();
     LastesProductById.value = { ...jsonnew };
-    console.log(LastesProductById.value);
+    // console.log(LastesProductById.value);
   };
 
   return {
