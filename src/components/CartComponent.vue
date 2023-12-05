@@ -2,7 +2,7 @@
     <div class="cart-page">
         <h2>Your Shopping Cart</h2>
 
-        <div v-if="products.length === 0" class="empty-cart">
+        <div v-if="cartItem.length === 0" class="empty-cart">
             <p>Your cart is empty. Start shopping!</p>
             <button>
                 <a href="/">Shop Now</a>
@@ -10,25 +10,19 @@
         </div>
 
         <div v-else>
-            <div class="cart-items">
-                <div v-for="(item, index) in products" :key="index" class="cart-item">
-                    <div class="product-details">
-                        <img :src="item.productImageURL[0]" :alt="item.productName" class="product-image">
-                        <div class="product-info">
-                            <h3>{{ item.productName }}</h3>
-                            <p class="price">${{ item.price.toFixed(2) }}</p>
-                        </div>
-                    </div>
-                    <div class="quantity-controls">
+            <div>
+                <h2>Your Cart Items</h2>
+                <ul>
+                    <li v-for="(item, index) in cartItem" :key="index">
+                        <div>Product ID: {{ item.productId }}</div>
+                        <div>Merchant ID: {{ item.merchantId }}</div>
                         <button @click="decreaseQuantity(index)" class="quantity-button">-</button>
                         <span class="quantity">{{ item.quantity }}</span>
                         <button @click="increaseQuantity(index)" class="quantity-button">+</button>
-                    </div>
-                    <div class="total-amount">
-                        <p>Total: ${{ (item.price * item.quantity).toFixed(2) }}</p>
-                    </div>
-                    <button @click="removeItem(index)" class="remove-button">Remove</button>
-                </div>
+                        <div>Price: {{ item.price }}</div>
+                    </li>
+
+                </ul>
             </div>
 
             <div class="cart-summary">
@@ -36,136 +30,94 @@
                     <p>Total Items: {{ totalItems }}</p>
                     <p>Total Price: ${{ totalPrice.toFixed(2) }}</p>
                 </div>
-                <button @click="checkout" class="checkout-button">Proceed to Checkout</button>
+                <button @click="removeItem" class="checkout-button">Proceed to Checkout</button>
             </div>
         </div>
     </div>
 </template>
   
 <script>
-import { computed, ref } from 'vue';
-
+import { computed, ref, onBeforeMount, onMounted } from 'vue';
+import useCartStore from '@/store/cart-store';
+// import useProductRootStore from '@/store/ProductStore';
 export default {
     setup() {
-        const products = ref([{
-            "productId": "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
-            "productName": "Sample Product",
-            "productImageURL": [
-                "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg",
-                "https://example.com/images/product2.jpg"
-            ],
-            "price": 100,
-            "quantity": 2,
-            "usp": "High-quality, durable, and versatile",
-            "category": "ELECTRONICS", // Replace with the actual category value
-            "skus": [
-                {
-                    "mId": "1",
-                    "stock": 100,
-                    "price": 299.99,
-                    "listingPrice": 349.99,
-                    "isActive": true
-                },
-                {
-                    "mId": "2",
-                    "stock": 50,
-                    "price": 199.99,
-                    "listingPrice": 249.99,
-                    "isActive": true
-                }
-            ],
-            "description": "This is a sample product description.",
-            "attribute": {
-                "color": "Black",
-                "brand": "Sample Brand"
-            },
-            "reviews": [
-                {
-                    "reviewId": "1",
-                    "mId": "3",
-                    "stars": 4.5
-                },
-                {
-                    "reviewId": "2",
-                    "mId": "4",
-                    "stars": 5.0
-                }
-            ],
-            "ratings": 4.75
-        }, {
-            "productId": "c809dbb8-e0ef-4a6b-bc5e-1b30a1ea8c81",
-            "productName": "Sample Product",
-            "productImageURL": [
-                "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg",
-                "https://example.com/images/product2.jpg"
-            ],
-            "price": 300,
-            "quantity": 5,
-            "usp": "High-quality, durable, and versatile",
-            "category": "ELECTRONICS", // Replace with the actual category value
-            "skus": [
-                {
-                    "mId": "1",
-                    "stock": 100,
-                    "price": 299.99,
-                    "listingPrice": 349.99,
-                    "isActive": true
-                },
-                {
-                    "mId": "2",
-                    "stock": 50,
-                    "price": 199.99,
-                    "listingPrice": 249.99,
-                    "isActive": true
-                }
-            ],
-            "description": "This is a sample product description.",
-            "attribute": {
-                "color": "Black",
-                "brand": "Sample Brand"
-            },
-            "reviews": [
-                {
-                    "reviewId": "1",
-                    "mId": "3",
-                    "stars": 4.5
-                },
-                {
-                    "reviewId": "2",
-                    "mId": "4",
-                    "stars": 5.0
-                }
-            ],
-            "ratings": 4.75
-        }
-        ])
 
-        const totalPrice = computed(() => {
-            return products.value.reduce((total, item) => total + item.price * item.quantity, 0)
-        })
-        const totalItems = computed(() => {
-            return products.value.reduce((total, item) => total + item.quantity, 0)
-        })
 
-        const increaseQuantity = (index) => {
-            products.value[index].quantity++;
-        }
-        const decreaseQuantity = (index) => {
-            if (products.value[index].quantity > 1) {
-                products.value[index].quantity--;
+        const cartStore = useCartStore();
+        const userId = sessionStorage.getItem("userId");
+        const cartItem = ref([]);
+
+        onMounted(() => {
+            cartItem.value.sort((a, b) => {
+                return a.productId.localeCompare(b.productId);
+            });
+        })
+        onBeforeMount(async () => {
+            
+            try {
+                await cartStore.GET_CAR_BY_ID(userId);
+                cartItem.value = cartStore.getCartById;
+                console.log(cartItem.value);
+            } catch (error) {
+                console.error("Error fetching data:", error);
             }
-        }
+        });
+
+        let cartItemDto = {};
+        const totalPrice = computed(() => {
+            return cartItem.value.reduce((total, item) => total + item.price * item.quantity, 0);
+        });
+
+        const totalItems = computed(() => {
+            return cartItem.value.reduce((total, item) => total + item.quantity, 0);
+        });
+
         const removeItem = (index) => {
-            console.log(products)
-            products.value.splice(index, 1);
-        }
+            // cartItem.value.splice(index, 1);
+            // cartItem.value.splice(index, 1);
+            console.log(userId);
+            console.log(cartItem.value[index].cartId);
+            // console.log(cartItem.value[index].cartId);
+            cartStore.deleteCart(userId,cartItem.value[index].cartId);
+
+        };
+        const increaseQuantity = (index) => {
+            cartItem.value[index].quantity++;
+            cartItemDto = [{
+                cartId: cartItem.value[index].cartId,
+                productId: cartItem.value[index].productId,
+                merchantId: cartItem.value[index].merchantId,
+                quantity: cartItem.value[index].quantity,
+                price: cartItem.value[index].price
+            }
+            ]
+            cartStore.UPDATE_CART(cartItemDto, userId);
+
+        };
+
+        const decreaseQuantity = (index) => {
+            if (cartItem.value[index].quantity > 1) {
+                cartItem.value[index].quantity--;
+                cartItemDto = [{
+                    cartId: cartItem.value[index].cartId,
+                    productId: cartItem.value[index].productId,
+                    merchantId: cartItem.value[index].merchantId,
+                    quantity: cartItem.value[index].quantity,
+                    price: cartItem.value[index].price
+                }
+                ]
+                cartStore.UPDATE_CART(cartItemDto, userId);
+            }
+
+        };
         return {
-            products,
             totalItems,
             totalPrice,
+            cartItem,
+            removeItem,
             increaseQuantity,
-            decreaseQuantity,
-            removeItem
+            decreaseQuantity
         }
     }
 };

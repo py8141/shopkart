@@ -94,6 +94,7 @@ export default {
   border: 2px solid #8e918e;
   padding: 20px;
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .register h2 {

@@ -5,19 +5,24 @@
             <!-- <router-link to ="/">ShopKart</router-link> -->
         </div>
 
-        <div :class="{ 'search-cnt-loggedin': isLoggedIn, 'search-cnt-loggedout': !isLoggedIn }">
+        <div :class="{ 'search-cnt-loggedin': logedIn, 'search-cnt-loggedout': !logedIn }">
             <input type="text" class="search-input" placeholder="Enter your need!">
-            <button class="search-button">Search</button>
+            <button class="search-button" @click="takeMeToSearch">Search</button>
         </div>
-        <div class="nav-right" v-if="isLoggedIn">
+        <div class="nav-right sub-menu" v-if="!logedIn" @click="takeMeToLogin">
+            <img :src="userIcon" class="icon-new">
+            <p class="login-text">LogIn</p>
+        </div>
+        <div class="nav-right" v-if="logedIn">
             <div class="sub-menu">
+
                 <p @click="takeMeOrder" class="flex"> <img class="icon" :src="ordericon">Orders</p>
+
                 <p class="flex"> <img class="icon" :src="shopingcart">Cart</p>
             </div>
-            <img :src="userIcon" class="icon">
-            <p>My Profile</p>
+            <!-- <img :src="userIcon" class="icon">
+            <p>My Profile</p> -->
             <button class="logoutButton" @click="logout">Logout</button>
-
         </div>
     </div>
 </template>
@@ -28,21 +33,30 @@ import userIcon from "@/assets/userIcon.svg"
 import ordericon from "@/assets/ordericon.svg"
 import shopingcart from "@/assets/shopingcart.svg"
 import { useRouter } from 'vue-router'
+import useAuthStore from "@/store/auth-store.js";
+
 export default defineComponent({
     setup() {
-
+        const authStore = useAuthStore();
         const isLoggedIn = computed(() => {
             const token = sessionStorage.getItem("jwtToken");
             return token !== null && token.length !== 0;
         })
         const logout = () => {
             sessionStorage.removeItem("jwtToken");
-
             isLoggedIn.value = false;
             window.location.reload()
-
         };
-
+        const takeMeToLogin = () => {
+            router.push("/login")
+        }
+        const takeMeToOrders = () => {
+            router.push("/orders")
+        }
+        const takeMeToSearch = () => {
+            router.push("/search")
+        }
+        const logedIn = computed(() => authStore.userJWT.length > 0)
         const router = useRouter();
         const takeMeHome = () => {
             router.push("/")
@@ -60,18 +74,22 @@ export default defineComponent({
             logout,
             takeMeHome,
             takeMeOrder
+            logedIn,
+            takeMeToLogin,
+            takeMeToOrders,
+            takeMeToSearch
         }
     },
 })
 </script>
 <style scoped>
 .search-cnt-loggedin {
-    flex: 0.5;
+    flex: 0.8;
     padding: auto;
 }
 
 .search-cnt-loggedout {
-    flex: 0.7;
+    flex: 1;
     margin-right: 300px;
 }
 
@@ -118,6 +136,10 @@ export default defineComponent({
     /* margin-right: 2rem; */
 }
 
+.login-text {
+    margin: auto 0.3rem !important;
+}
+
 .sub-menu p {
     margin: auto 0.8rem;
 }
@@ -130,11 +152,16 @@ export default defineComponent({
 .nav-right {
     display: flex;
     padding: 0 1rem;
+    cursor: pointer;
 }
 
 .icon {
     width: 1.2rem;
     margin: 0.3rem;
+}
+
+.icon-new {
+    width: 1.2rem;
 }
 
 .search-cnt {
