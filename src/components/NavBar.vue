@@ -30,7 +30,10 @@ export default defineComponent({
         return {
             userIcon,
             ordericon,
-            shopingcart
+            shopingcart,
+            isLoggedIn,
+            logout,
+            takeMeHome
         }
     },
 })
