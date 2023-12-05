@@ -59,7 +59,7 @@ export default {
             itemWidth.value = Math.ceil(carousel.clientWidth / 5); // Display 5 items at a time
         });
         const routeMeToProduct = (productId) => {
-            router.push(`/products/${productId}`)
+            router.push(`/product/${productId}`)
         }
 
         const showPrevButton = computed(() => currentIndex.value > 0);

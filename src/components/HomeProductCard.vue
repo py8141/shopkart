@@ -23,7 +23,7 @@ export default defineComponent({
     setup() {
         const router = useRouter();
         const routeMeToProduct = (productId) => {
-            router.push(`/products/${productId}`)
+            router.push(`/product/${productId}`)
         }
 
         return {
