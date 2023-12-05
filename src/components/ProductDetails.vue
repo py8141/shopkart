@@ -66,7 +66,7 @@
 
 
 <script>
-import { computed, defineComponent, onMounted, ref, watch } from "vue";
+import { computed, defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import useProductRootStore from "@/store/ProductStore";
 
@@ -96,9 +96,10 @@ export default defineComponent({
       const roundedNumber = Math.round(randomNumber * 100) / 100;
       return roundedNumber;
     }
-    watch(Product, () => console.log(Product?.value))
-    onMounted(() => {
-      selectedOption.value = skus?.value?.[0]
+    watch(skus, () => {
+      if (selectedOption.value === null) {
+        selectedOption.value = skus?.value?.[0]
+      }
     })
 
     return {

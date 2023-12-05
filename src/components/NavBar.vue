@@ -15,10 +15,8 @@
         </div>
         <div class="nav-right" v-if="logedIn">
             <div class="sub-menu">
-
                 <p @click="takeMeOrder" class="flex"> <img class="icon" :src="ordericon">Orders</p>
-
-                <p class="flex"> <img class="icon" :src="shopingcart">Cart</p>
+                <p class="flex" @click="takeMeToCart"> <img class="icon" :src="shopingcart">Cart</p>
             </div>
             <!-- <img :src="userIcon" class="icon">
             <p>My Profile</p> -->
@@ -56,6 +54,9 @@ export default defineComponent({
         const takeMeToSearch = () => {
             router.push("/search")
         }
+        const takeMeToCart = () =>{
+            router.push("/cart")
+        }
         const logedIn = computed(() => authStore.userJWT.length > 0)
         const router = useRouter();
         const takeMeHome = () => {
@@ -73,11 +74,12 @@ export default defineComponent({
             isLoggedIn,
             logout,
             takeMeHome,
-            takeMeOrder
+            takeMeOrder,
             logedIn,
             takeMeToLogin,
             takeMeToOrders,
-            takeMeToSearch
+            takeMeToSearch,
+            takeMeToCart
         }
     },
 })
