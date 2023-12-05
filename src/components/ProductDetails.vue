@@ -3,7 +3,7 @@
   <div class="container">
     <div class="left-column">
       <img
-      :src="Product.productImageURL[0]"
+      :src="Product.productImageURL?.[0]"
         alt=""
       />
     </div>
@@ -47,10 +47,10 @@
       </div>
     </div>
   </div>
-  <div class="reviw-container">
-    <h2>Customer Reviws</h2>
-    <p>No Reviws Yet</p>
-    <div><p>Write a reviws</p></div>
+  <div class="review-container">
+    <h2>Customer review</h2>
+    <p>No review Yet</p>
+    <div>Write a review</div>
   </div>
 </template>
    
@@ -76,6 +76,7 @@
 .right-column {
   width: 360px;
   height: 400px;
+  text-align: justify;
 }
 
 .left-column img {
@@ -167,7 +168,7 @@
   color: #010101;
 }
 
-.reviw-container {
+.review-container {
   margin-top: 15%;
   border-radius: 25px;
   border: 2px solid #8e918e;
@@ -175,6 +176,7 @@
   width: 80%;
   margin-left: 10%;
   margin-bottom: 30px;
+  text-align: justify;
 }
 
 @media screen and (min-width: 360px) and (max-width: 900px) {
@@ -196,13 +198,13 @@
 
   .right-column {
     margin-top: 20%;
-
+    
     width: 300px;
     height: 400px;
     margin-left: 8px;
   }
 
-  .reviw-container {
+  .review-container {
     margin: auto;
     border-radius: 25px;
     border: 2px solid #8e918e;
@@ -223,10 +225,12 @@ import {  computed, defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import useProductRootStore from "@/store/ProductStore";
 
+
+
 export default defineComponent({
   setup() {
 
-
+   
     const rootStore = useProductRootStore();
    
     // const Product = computed(() => rootStore.products.value)
