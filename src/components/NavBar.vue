@@ -7,7 +7,7 @@
 
         <div :class="{ 'search-cnt-loggedin': logedIn, 'search-cnt-loggedout': !logedIn }">
             <input type="text" class="search-input" placeholder="Enter your need!">
-            <button class="search-button">Search</button>
+            <button class="search-button" @click="takeMeToSearch">Search</button>
         </div>
         <div class="nav-right sub-menu" v-if="!logedIn" @click="takeMeToLogin">
             <img :src="userIcon" class="icon-new">
@@ -51,6 +51,9 @@ export default defineComponent({
         const takeMeToOrders = () => {
             router.push("/orders")
         }
+        const takeMeToSearch = () => {
+            router.push("/search")
+        }
         const logedIn = computed(() => authStore.userJWT.length > 0)
         const router = useRouter();
         const takeMeHome = () => {
@@ -65,7 +68,8 @@ export default defineComponent({
             takeMeHome,
             logedIn,
             takeMeToLogin,
-            takeMeToOrders
+            takeMeToOrders,
+            takeMeToSearch
         }
     },
 })

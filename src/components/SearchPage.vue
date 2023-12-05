@@ -9,7 +9,7 @@
         <h3>{{ product.productName }}</h3>
         <p class="price">Rs. {{ product?.skus?.[0].price }}</p>
 
-        <h3>Rating : {{ product.reviews }} / 5</h3>
+        <h3>Rating : {{ getRandomNumberWithTwoDecimals() }} / 5</h3>
       </div>
     </div>
   </div>
@@ -29,9 +29,18 @@ export default defineComponent({
       router.push(`/product/${productId}`);
     };
 
+    function getRandomNumberWithTwoDecimals() {
+      const min = 3;
+      const max = 5;
+      const randomNumber = Math.random() * (max - min) + min;
+      const roundedNumber = Math.round(randomNumber * 100) / 100;
+      return roundedNumber;
+    }
+
     return {
       routeMeTo,
       products,
+      getRandomNumberWithTwoDecimals
     };
   },
 });
@@ -46,9 +55,10 @@ export default defineComponent({
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 20px;
- 
+
 }
-.oneline{
+
+.oneline {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -64,7 +74,7 @@ export default defineComponent({
   margin-bottom: 20px;
   box-sizing: border-box;
   cursor: pointer;
-  
+
 }
 
 .card img {

@@ -23,7 +23,7 @@
         <div class="brand">
           <span>Brand :</span>
 
-          <div>{{ Product.attribute.brand }}</div>
+          <div>{{ Product.attribute?.brand }}</div>
         </div>
         <div class="color">
           <span>Color :</span>
@@ -97,10 +97,6 @@ export default defineComponent({
       return roundedNumber;
     }
     watch(Product, () => console.log(Product?.value))
-    // const merchant = ref([]);
-    // for (let ele of Product.skus) {
-    //   merchant.value.push(ele);
-    // }
     onMounted(() => {
       selectedOption.value = skus?.value?.[0]
     })
