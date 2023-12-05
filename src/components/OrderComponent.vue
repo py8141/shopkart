@@ -1,212 +1,114 @@
 <template>
-    <div class="cart-page" v-if="isLoggedIn">
-      <h2>Your Shopping Cart</h2>
-  
-      <div v-if="cartItems.length === 0" class="empty-cart">
-        <p>Your cart is empty. Start shopping!</p>
-      </div>
-  
-      <div v-else>
-        <div class="cart-items">
-          <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
-            <div class="product-details">
-              <img :src="item.imageUrl" :alt="item.name" class="product-image">
-              <div class="product-info">
-                <h3>{{ item.name }}</h3>
-                <p class="price">${{ item.price.toFixed(2) }}</p>
-              </div>
-            </div>
-            <div class="quantity-controls">
-              <button @click="decreaseQuantity(index)" class="quantity-button">-</button>
-              <span class="quantity">{{ item.quantity }}</span>
-              <button @click="increaseQuantity(index)" class="quantity-button">+</button>
-            </div>
-            <div class="total-amount">
-              <p>Total: ${{ (item.price * item.quantity).toFixed(2) }}</p>
-            </div>
-            <button @click="removeItem(index)" class="remove-button">Remove</button>
-          </div>
-        </div>
-  
-        <div class="cart-summary">
-          <div class="summary-text">
-            <p>Total Items: {{ totalItems }}</p>
-            <p>Total Price: ${{ totalPrice.toFixed(2) }}</p>
-          </div>
-          <button @click="checkout" class="checkout-button">Proceed to Checkout</button>
-        </div>
+  <h1 class="order">Your Orders</h1>
+  <div class="card-container">
+    <div v-for="product in products" class="card" :key="product.productId" @click="routeMeTo(product.productId)">
+      <img :src="product.productImageURL[0]" alt="Image 1" />
+      <!-- <img v-for="(img,index) in Product.productImageURL" :src="img" :key="index" > -->
+
+      <div class="card-content">
+        <h3 class="oneline">{{ product.productName }}</h3>
+        <p class="price">Rs: {{ product.productName  }}</p>
+        <p>Order Status:</p>
+        <P>Quantity:</P>
+        <p>Total Price:{{ 3*4 }}</p>
+
       </div>
     </div>
-  </template>
-  
-  <script>
-  import {ref , computed} from 'vue';
-  export default {
+  </div>
+</template>
+
+<script>
+import router from "@/router";
+import { computed, defineComponent } from "vue";
+import useProductRootStore from "@/store/ProductStore";
+
+export default defineComponent({
   setup() {
-    const cartItems = ref([
-      { name: 'Product 1', quantity: 2, price: 20 },
-      { name: 'Product 2', quantity: 1, price: 30 },
-    
-    ]);
-
-    const isLoggedIn = computed(()=> {
-      const token = sessionStorage.getItem("jwtToken");
-            return token !== null && token.length !== 0;
-    }  )
-    const totalItems = computed(() => cartItems.value.reduce((total, item) => total + item.quantity, 0));
-
-    const totalPrice = computed(() =>
-      cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0)
-    );
-
-    const increaseQuantity = (index) => {
-      cartItems.value[index].quantity++;
-    };
-
-    const decreaseQuantity = (index) => {
-      if (cartItems.value[index].quantity > 1) {
-        cartItems.value[index].quantity--;
-      }
-    };
-
-    const removeItem = (index) => {
-      cartItems.value.splice(index, 1);
-    };
-
-    const checkout = () => {
-      // Add logic for checkout process
-      alert('Proceeding to checkout...');
+    const rootStore = useProductRootStore();
+    rootStore.FETCH_PRODUCTS()
+    const products = computed(() => rootStore.products)
+    const routeMeTo = (productId) => {
+      router.push(`/product/${productId}`);
     };
 
     return {
-      cartItems,
-      totalItems,
-      totalPrice,
-      increaseQuantity,
-      decreaseQuantity,
-      removeItem,
-      checkout,
-      isLoggedIn
+      routeMeTo,
+      products,
     };
   },
-};
-  </script>
+});
+</script>
+
+<style scoped>
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 20px;
+ 
+}
+.oneline{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card {
+  height: 350px;
+  width: 190px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
   
-  <style scoped>
-  
-  .cart-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .empty-cart {
-    text-align: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .cart-items {
-    margin-top: 20px;
-  }
-  
-  .cart-item {
+}
+
+.card img {
+  width: 100%;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.card-content {
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.card-content h3 {
+  margin: 5px 0;
+}
+
+.price {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  .card-container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+  }
+
+  .card {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 15px;
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .cart-item:hover {
-    transform: translateY(-5px);
-  }
-  
-  .product-details {
-    display: flex;
-    align-items: center;
-  }
-  
-  .product-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    margin-right: 15px;
-    border-radius: 8px;
-  }
-  
-  .product-info {
-    flex-grow: 1;
-  }
-  
-  .price {
-    font-weight: bold;
-    color: #3498db;
-  }
-  
-  .quantity-controls {
-    display: flex;
-    align-items: center;
-  }
-  
-  .quantity-button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    box-sizing: border-box;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
   }
-  
-  .quantity {
-    margin: 0 10px;
-    font-size: 16px;
-  }
-  
-  .total-amount {
-    font-weight: bold;
-    color: #27ae60;
-  }
-  
-  .remove-button {
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 4px;
-  }
-  
-  .cart-summary {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .summary-text {
-    font-size: 16px;
-  }
-  
-  .checkout-button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-  }
-  </style>
+}
+</style>
+
