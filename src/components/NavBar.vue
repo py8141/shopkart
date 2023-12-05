@@ -51,9 +51,9 @@ export default defineComponent({
             userIcon,
             ordericon,
             shopingcart,
-            isLoggedIn,
-            logout
-            takeMeHome
+            takeMeHome,
+            logout,
+            isLoggedIn
         }
     },
 })
