@@ -1,21 +1,18 @@
 import { defineStore } from "pinia";
 import { reactive } from "vue";
 
-const useRootStore = defineStore('root', () => {
+const useRootStore = defineStore("root", () => {
+  const posts = reactive({ value: {} });
+  const FETCH_POST = async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const jsonnew = await res.json();
+    posts.value = { ...jsonnew };
+  };
 
-    const posts = reactive({ value: {} })
-    const FETCH_POST = async () => {
-        const res = await fetch('https://jsonplaceholder.typicode.com/todos')
-        const jsonnew = await res.json();
-        posts.value = { ...jsonnew }
-    }
-
-    return {
-     posts,
-     FETCH_POST
-    }
-})
-
-
+  return {
+    posts,
+    FETCH_POST,
+  };
+});
 
 export default useRootStore;
