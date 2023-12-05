@@ -1,7 +1,7 @@
 <template>
     <div class="nav-cnt">
         <div class="nav-left">
-            <a>ShopKart</a>
+            <a @click="takeMeHome">ShopKart</a>
             <!-- <router-link to ="/">ShopKart</router-link> -->
 
         </div>
@@ -25,12 +25,18 @@ import { defineComponent } from "vue";
 import userIcon from "@/assets/userIcon.svg"
 import ordericon from "@/assets/ordericon.svg"
 import shopingcart from "@/assets/shopingcart.svg"
+import { useRouter } from 'vue-router'
 export default defineComponent({
     setup() {
+        const router = useRouter();
+        const takeMeHome = () => {
+            router.push("/")
+        }
         return {
             userIcon,
             ordericon,
-            shopingcart
+            shopingcart,
+            takeMeHome
         }
     },
 })
@@ -44,6 +50,7 @@ export default defineComponent({
     box-shadow: 0px 2px 5px #F3F3f3;
     position: sticky;
     top: 0px;
+    z-index: 999;
 }
 
 .flex {
@@ -63,6 +70,7 @@ export default defineComponent({
 
 .nav-left {
     display: flex;
+    cursor: pointer;
 }
 
 .nav-right {
