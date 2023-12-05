@@ -2,8 +2,10 @@
     <div class="carousel">
         <div class="carousel-wrapper">
             <div class="carousel-inner" :style="{ transform: `translateX(${translateX}px)` }">
-                <div v-for="(product, index) in products" :key="index" class="carousel-item">
-                    <img :src="product.image" alt="Product" />
+                <div v-for="(product, index) in products" :key="index" class="carousel-item"
+                    @click="routeMeToProduct(product.productId)">
+                    <img :src="product.productImageURL[0]" alt="Product" />
+                    <p>{{ product.productName }}</p>
                 </div>
             </div>
         </div>
@@ -15,24 +17,22 @@
 </template>
   
 <script>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, onBeforeMount, watch } from 'vue';
 import rightIcon from "@/assets/righticon.svg"
 import leftIcon from "@/assets/lefticon.svg"
+import { useProductRootStore } from "@/store/ProductStore"
+import { useRouter } from 'vue-router'
 export default {
-    setup() {
-        const products = [
-            { image: "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg" },
-            { image: "https://assets.sangeethamobiles.com/product_img/2577-1.JPG" },
-            { image: "https://assets.sangeethamobiles.com/product_img/4777-2.jpg" },
-            { image: "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg" },
-            { image: "https://assets.sangeethamobiles.com/product_img/2577-1.JPG" },
-            { image: "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg" },
-            { image: "https://assets.sangeethamobiles.com/product_img/2577-1.JPG" },
-            { image: "https://assets.sangeethamobiles.com/product_img/4777-2.jpg" },
-            { image: "https://assets.sangeethamobiles.com/product_img/14507/1694714687_bw9.jpg" },
-            { image: "https://assets.sangeethamobiles.com/product_img/2577-1.JPG" }
-        ];
 
+    setup() {
+        const router = useRouter();
+        const productStore = useProductRootStore();
+        const products = computed(() => productStore.products);
+        watch(products, () => {
+            if (products?.value) {
+                products.value.reverse()
+            }
+        })
         const translateX = ref(0);
         const itemWidth = ref(0);
         const currentIndex = ref(0);
@@ -45,29 +45,36 @@ export default {
         };
 
         const next = () => {
-            if (currentIndex.value < products.length - 5) {
+            if (currentIndex.value < products.value.length - 4) {
                 currentIndex.value++;
                 translateX.value -= itemWidth.value;
             }
         };
 
+        onBeforeMount(async () => {
+            await productStore.FETCH_PRODUCTS()
+        })
         onMounted(() => {
             const carousel = document.querySelector('.carousel-wrapper');
             itemWidth.value = Math.ceil(carousel.clientWidth / 5); // Display 5 items at a time
         });
+        const routeMeToProduct = (productId) => {
+            router.push(`/products/${productId}`)
+        }
 
         const showPrevButton = computed(() => currentIndex.value > 0);
-        const showNextButton = computed(() => currentIndex.value < products.length - 1);
+        const showNextButton = computed(() => currentIndex.value < products.value.length - 1);
 
         return {
-            products,
             translateX,
             prev,
             next,
             rightIcon,
             leftIcon,
             showPrevButton,
-            showNextButton
+            showNextButton,
+            products,
+            routeMeToProduct
         };
     },
 };
@@ -83,6 +90,10 @@ export default {
 .carousel-wrapper {
     display: flex;
     overflow: hidden;
+}
+
+.carousel-item {
+    cursor: pointer;
 }
 
 .carousel-inner {

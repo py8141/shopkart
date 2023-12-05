@@ -30,8 +30,10 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   width: 100%;
+  overflow-x: hidden;
 }
-.WA-cnt{
+
+.WA-cnt {
   margin: 0;
 
 }
