@@ -6,7 +6,7 @@
 
       <div class="card-content">
         <h3>{{ product.productName }}</h3>
-        <p class="price">Rp. {{ product.skus }}</p>
+        <p class="price">Rp. {{ product?.skus?.[0].price }}</p>
         <h3>Rating : {{ product.reviews }} / 5</h3>
       </div>
     </div>

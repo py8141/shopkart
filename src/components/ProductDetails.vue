@@ -3,7 +3,7 @@
   <div class="container">
     <div class="left-column">
       <img
-      :src="Product.productImageURL[0]"
+      :src="Product.productImageURL?.[0]"
         alt=""
       />
     </div>
