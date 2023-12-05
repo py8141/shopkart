@@ -39,7 +39,7 @@ export const useAuthStore = defineStore("auth", () => {
             body: JSON.stringify(userCredentials),
           };
       
-          const res = await fetch("http://localhost:8051/api/auth/login", options);
+          const res = await fetch("http://10.20.3.72:8051/api/auth/login", options);
       
           if (!res.ok) {
             console.error("Error during login:", res.status);

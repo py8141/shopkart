@@ -11,7 +11,7 @@
         </div>
         <div class="nav-right" v-if="isLoggedIn">
             <div class="sub-menu">
-                <p class="flex"> <img class="icon" :src="ordericon">Orders</p>
+                <p @click="takeMeOrder" class="flex"> <img class="icon" :src="ordericon">Orders</p>
                 <p class="flex"> <img class="icon" :src="shopingcart">Cart</p>
             </div>
             <img :src="userIcon" class="icon">
@@ -47,13 +47,19 @@ export default defineComponent({
         const takeMeHome = () => {
             router.push("/")
         }
+        const takeMeOrder =() =>{
+            router.push("/orders")
+        }
+
+
         return {
             userIcon,
             ordericon,
             shopingcart,
             isLoggedIn,
             logout,
-            takeMeHome
+            takeMeHome,
+            takeMeOrder
         }
     },
 })
@@ -97,12 +103,14 @@ export default defineComponent({
     position: sticky;
     top: 0px;
     z-index: 999;
+    
 }
 
 .flex {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .sub-menu {

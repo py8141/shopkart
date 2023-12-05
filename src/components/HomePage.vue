@@ -56,6 +56,7 @@
 .hr-line {
     width: 20%;
     margin-bottom: 4rem;
+    margin-top: 4rem;
 }
 
 .hero-card-cnt {
