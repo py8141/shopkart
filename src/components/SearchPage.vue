@@ -28,6 +28,7 @@ export default defineComponent({
     const routeMeTo = (productId) => {
       router.push(`/product/${productId}`);
     };
+    console.log(products);
 
     function getRandomNumberWithTwoDecimals() {
       const min = 3;

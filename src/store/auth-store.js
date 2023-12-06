@@ -6,7 +6,7 @@ export const useAuthStore = defineStore("auth", () => {
     registerStatus: { value: {} },
   });
   const userJWT = ref(sessionStorage.getItem("jwtToken") || "");
-  const userID = ref(sessionStorage.getItem("userId") || "")
+  // const userID = ref(sessionStorage.getItem("userId") || "")
 
   const loginUser = async (userCredentials) => {
     try {

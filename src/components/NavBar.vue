@@ -42,6 +42,7 @@ export default defineComponent({
         })
         const logout = () => {
             sessionStorage.removeItem("jwtToken");
+            sessionStorage.removeItem("userId");
             isLoggedIn.value = false;
             window.location.reload()
         };
